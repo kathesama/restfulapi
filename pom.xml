@@ -14,7 +14,7 @@
 	<name>restfulapi</name>
 	<description>Practice restfull api for RESTful Web Services, Java, Spring Boot, Spring MVC and JPA using mongo as repo</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>16</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

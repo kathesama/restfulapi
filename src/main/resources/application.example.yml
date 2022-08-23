@@ -1,0 +1,20 @@
+server:
+  port: 8056
+jms:
+  jwt:
+    security:
+      enabled: true
+    timezone: "Americas/Argentina/Buenos_Aires"
+    issuer: "somevalidissuer"
+    token:
+      auth:
+        path: "/api/v1/oauth/client_credential/access_token"
+      secret: "somevalidstring"
+      expires-in: 3600 # seconds
+    excluded:
+      path: "/api/v1/multi,/api/v1/another"
+spring:
+  data:
+    mongodb:
+      database: <database>
+      uri: mongodb://<user>:<password>@<server>:27017/?authSource=admin&readPreference=primary&appname=<appName>&directConnection=true&ssl=true

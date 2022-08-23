@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Confidential Data ###
+src/main/resources/application.yml
