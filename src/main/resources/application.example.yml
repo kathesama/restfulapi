@@ -13,8 +13,11 @@ jms:
       expires-in: 3600 # seconds
     excluded:
       path: "/api/v1/multi,/api/v1/another"
+  configuration:
+    base-url: "/api/v1/"
 spring:
   data:
     mongodb:
       database: <database>
       uri: mongodb://<user>:<password>@<server>:27017/?authSource=admin&readPreference=primary&appname=<appName>&directConnection=true&ssl=true
+      auto-index-creation: true

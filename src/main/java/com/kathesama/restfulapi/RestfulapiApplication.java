@@ -23,7 +23,13 @@ public class RestfulapiApplication {
 	CommandLineRunner runner(ExampleRepository exampleRepository){
 		return args -> {
 			Example example = new Example("first example", LocalDateTime.now());
-			exampleRepository.insert(example);
+
+			exampleRepository.findByName(example.getName()).ifPresentOrElse(s -> {
+				System.out.println("Example already exists");
+			}, () -> {
+				System.out.println("Insert Example at DB");
+				exampleRepository.insert(example);
+			});
 		};
 	}
 }
