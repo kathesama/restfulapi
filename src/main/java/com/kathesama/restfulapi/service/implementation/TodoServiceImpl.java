@@ -1,7 +1,7 @@
 package com.kathesama.restfulapi.service.implementation;
 
-import com.kathesama.restfulapi.dto.TodoDTO;
-import com.kathesama.restfulapi.exception.TodoCollectionException;
+import com.kathesama.restfulapi.model.dto.TodoDTO;
+import com.kathesama.restfulapi.exception.GenericCollectionException;
 import com.kathesama.restfulapi.repository.TodoRepository;
 import com.kathesama.restfulapi.service.TodoServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +17,25 @@ public class TodoServiceImpl implements TodoServiceInterface {
     private TodoRepository todoRepository;
 
     @Override
-    public List<TodoDTO> getAllTodos() throws ConstraintViolationException, TodoCollectionException {
+    public List<TodoDTO> getAllTodos() throws ConstraintViolationException, GenericCollectionException {
         List<TodoDTO> todos = todoRepository.findAll();
 
         return !todos.isEmpty() ? todos: new ArrayList<>();
     }
 
     @Override
-    public TodoDTO getOneTodo(String id) throws ConstraintViolationException, TodoCollectionException {
+    public TodoDTO getOneTodo(String id) throws ConstraintViolationException, GenericCollectionException {
         Optional<TodoDTO> todo = todoRepository.findById(id);
         if (todo.isEmpty()){
-            throw new TodoCollectionException(TodoCollectionException.NotFound(id));
+            throw new GenericCollectionException(GenericCollectionException.NotFound(id));
         }
         return todo.get();
     }
 
     @Override
-    public void createTodo(TodoDTO todo) throws ConstraintViolationException, TodoCollectionException {
+    public void createTodo(TodoDTO todo) throws ConstraintViolationException, GenericCollectionException {
         if(todoRepository.findByTodoName(todo.getTodo()).isPresent()){
-            throw new TodoCollectionException(TodoCollectionException.TodoAlreadyExists());
+            throw new GenericCollectionException(GenericCollectionException.TodoAlreadyExists());
         }
 
         todo.setCreatedAt(new Date(System.currentTimeMillis()));
@@ -43,10 +43,10 @@ public class TodoServiceImpl implements TodoServiceInterface {
     }
 
     @Override
-    public void updateTodo(String id, TodoDTO todo) throws ConstraintViolationException, TodoCollectionException {
+    public void updateTodo(String id, TodoDTO todo) throws ConstraintViolationException, GenericCollectionException {
         Optional<TodoDTO> todoOptionalById = todoRepository.findById(id);
         if(todoOptionalById.isEmpty()){
-            throw new TodoCollectionException(TodoCollectionException.NotFound(id));
+            throw new GenericCollectionException(GenericCollectionException.NotFound(id));
         }
 
         TodoDTO todoToUpdate = todoOptionalById.get();
@@ -58,20 +58,20 @@ public class TodoServiceImpl implements TodoServiceInterface {
         try{
             todoRepository.save(todoToUpdate);
         }catch(DuplicateKeyException ex){
-            throw new TodoCollectionException(TodoCollectionException.TodoAlreadyExists());
+            throw new GenericCollectionException(GenericCollectionException.TodoAlreadyExists());
         }
     }
 
     /**
      * @param id
      * @throws ConstraintViolationException
-     * @throws TodoCollectionException
+     * @throws GenericCollectionException
      */
     @Override
-    public void deleteTodo(String id) throws ConstraintViolationException, TodoCollectionException {
+    public void deleteTodo(String id) throws ConstraintViolationException, GenericCollectionException {
         Optional<TodoDTO> todo = todoRepository.findById(id);
         if (todo.isEmpty()){
-            throw new TodoCollectionException(TodoCollectionException.NotFound(id));
+            throw new GenericCollectionException(GenericCollectionException.NotFound(id));
         }
 
         todoRepository.deleteById(id);

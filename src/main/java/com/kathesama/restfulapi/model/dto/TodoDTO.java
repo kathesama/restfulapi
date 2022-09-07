@@ -1,4 +1,4 @@
-package com.kathesama.restfulapi.dto;
+package com.kathesama.restfulapi.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,5 +33,4 @@ public class TodoDTO {
 
     private Date createdAt;
     private Date updatedAt;
-
 }

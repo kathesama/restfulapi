@@ -1,6 +1,6 @@
 package com.kathesama.restfulapi.repository;
 
-import com.kathesama.restfulapi.dto.TodoDTO;
+import com.kathesama.restfulapi.model.dto.TodoDTO;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
